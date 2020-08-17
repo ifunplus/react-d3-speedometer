@@ -1,9 +1,9 @@
-#custom react-d3-speedometer
+# custom react-d3-speedometer
 base on 0.12.0
 1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
 2) customSegmentLabel can show wrap text.（文字可以换行显示）
 
-##custom example
+## custom example
 ```javascript
   // 'customSegmentLabels' prop takes an array of 'CustomSegmentLabel' Object
   /*
