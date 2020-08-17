@@ -13,6 +13,7 @@ import {
   calculateNeedleHeight,
   formatCurrentValueText,
   sumArrayTill,
+  deg2rad
 } from "../util"
 import { getNeedleTransition } from "../util/get-needle-transition"
 import {
@@ -171,6 +172,59 @@ function _renderLabels({ config, svg, centerTx, r }) {
     .style("fill", config.textColor)
 }
 
+/**
+ * 
+ * @param {object} config 
+ * path {Mx y A rx ry 0 1 1 x_final y_final}
+ */
+function _getLabelTextPath(config){
+  console.log("_getLabelTextPath ",config)
+  const {customSegmentLabels,ringInset,ringWidth} = config
+  const len = customSegmentLabels.length
+  const halfWidth = config.width/2
+  const r = halfWidth -ringInset-ringWidth/2
+  let item0 = {x:ringInset+ringWidth/2-halfWidth,y:0}
+  let finalArr = []
+  finalArr.push(item0)
+
+  for(var i=0;i<len;i++){
+      if(i<=len/2){
+        //左部分
+        let rad = deg2rad((i+1)*180/(len))
+        let h = r*Math.sin(rad)
+        let w = r*Math.cos(rad)
+        let stop_x = -w
+        let stop_y = -h
+        finalArr.push({
+          x:stop_x,
+          y:stop_y
+        })
+      }else{
+        //右部分
+        let rad = deg2rad(180-(i+1)*180/(len))
+        let h = r*Math.sin(rad)
+        let w = r*Math.cos(rad)
+        let stop_x = w
+        let stop_y = -h
+        finalArr.push({
+          x:stop_x,
+          y:stop_y
+        })
+      }
+  }
+
+  let returnArr = []
+  finalArr.forEach((item,index)=>{
+    console.log(item,index)
+    if(index!==len){
+      let stop_x = finalArr[index+1].x
+      let stop_y = finalArr[index+1].y
+      returnArr.push("M"+item.x+" "+item.y+" A "+r+" "+r+" 0 0 1 "+stop_x+" "+stop_y)
+    }
+  })
+  return returnArr
+}
+
 // helper function to render 'custom segment labels'
 function _renderCustomSegmentLabels({
   config,
@@ -182,7 +236,7 @@ function _renderCustomSegmentLabels({
   scale,
   range,
 }) {
-  const { customSegmentStops, customSegmentLabels } = config
+  const { customSegmentStops, customSegmentLabels,segmentColors } = config
 
   // helper function to calculate angle
   function _calculateAngle(d, i) {
@@ -218,10 +272,32 @@ function _renderCustomSegmentLabels({
     .attr("class", "label")
     .attr("transform", centerTx)
 
+  var pathArr = _getLabelTextPath(config)
+
+  lg.selectAll("path")
+  .data(customSegmentLabels)
+  .enter()
+  .append("defs")
+  .append("path")
+  .attr("id", (item,i)=>{
+      return "textPath" + segmentColors[i]+i
+  })
+  .attr("d", (item,i)=>{
+      return pathArr[i]
+  });
+
   lg.selectAll("text")
     .data(customSegmentLabels)
     .enter()
     .append("text")
+    .append("textPath")
+    .attr("xlink:href", function (a, b) {
+      return "#textPath" + segmentColors[b]+b
+    })
+    //   .text((aa,bb)=>{
+    //       console.log("zhangxue >>>>>>>>>>>>>>",aa,bb)
+    //       return aa.text.slice(0,6)
+    //   })
     .attr("transform", (d, i) => {
       const newAngle = newAngles[i]
 
@@ -234,7 +310,7 @@ function _renderCustomSegmentLabels({
       // by default we will show "INSIDE"
       return d.position === "OUTSIDE" ? outerText : innerText
     })
-    .text((d) => d.text || "")
+    // .text((d) => d.text || "")
     // add class for text label
     .attr("class", "segment-value")
     // styling stuffs
@@ -242,10 +318,26 @@ function _renderCustomSegmentLabels({
     .style("font-size", (d) => d.fontSize || config.labelFontSize)
     .style("font-weight", "bold")
     .style("fill", (d) => d.color || config.textColor)
+    .each(function (aaa, i) {
+      var lines = _wordwrap(aaa.text)
+      for (var i = 0; i < lines.length; i++) {
+        d3Select(this).append("tspan")
+          .attr("dy",aaa.dy*(i))
+          .attr("x",function() { 
+              return aaa.x&&aaa.x[i]?aaa.x[i]:0; 
+          })
+          .text(lines[i])
+      }
+  })
 
   // depending on INSIDE/OUTSIDE config calculate the position/rotate/translate
 
   // utilise the color/fontSize configs
+}
+
+function _wordwrap(text) {  
+  var lines=text.split("\n")
+  return lines
 }
 
 function _renderCurrentValueText({ config, svg }) {
