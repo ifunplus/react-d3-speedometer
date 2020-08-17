@@ -1,3 +1,54 @@
+#custom react-d3-speedometer
+base on 0.12.0
+1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
+2) customSegmentLabel can show wrap text.（文字可以换行显示）
+
+##custom example
+```javascript
+  // 'customSegmentLabels' prop takes an array of 'CustomSegmentLabel' Object
+  /*
+  type CustomSegmentLabel = {
+    text?: string
+    position?: OUTSIDE/INSIDE
+    fontSize?: string
+    color?: string,
+    dy?:int,(distances or lineheigt between rows)
+    x?:array(diff rows' distances from the left start of segment)
+  }
+  */
+
+  <ReactSpeedometer
+  width={250}
+  height={150}
+  segments={2}
+  segmentColors={["#52C41AFF", "#F03B20FF"]}
+  value={250}
+  currentValueText={250}
+  customSegmentLabels={[
+  {
+    text: "No abnormalities\n observed",
+    position: "INSIDE",
+    fontSize: "12px",
+    color: "#555",
+    dy: 10,
+    x:[90,105]
+  },
+  {
+    text: "Presence of other\nabnormalities",
+    position: "INSIDE",
+    fontSize: "12px",
+    color: "#555",
+    dy: 10,
+    x:[100,110]
+  },
+  ]}
+  customSegmentStops={[0, 500, 1000]}
+  ringWidth={50}
+  needleHeightRatio={0.3}
+/>
+```
+
+
 # react-d3-speedometer
 
 **react-d3-speedometer** is a react component library for showing speedometer like gauge using d3.
