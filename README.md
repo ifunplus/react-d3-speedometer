@@ -1,7 +1,7 @@
 # custom react-d3-speedometer
 [npm publish error] sudo npm publish   
 
-base on 0.12.0
+base on 0.12.0  
 1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
 2) customSegmentLabel can show wrap text.（文字可以换行显示）
 
