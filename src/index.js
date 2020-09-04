@@ -79,6 +79,7 @@ class ReactSpeedometer extends PureComponent {
 // define the proptypes
 // make all the props and 'required' and provide sensible default in the 'defaultProps'
 ReactSpeedometer.propTypes = {
+  name: PropTypes.string,
   value: PropTypes.number.isRequired,
   minValue: PropTypes.number.isRequired,
   maxValue: PropTypes.number.isRequired,
