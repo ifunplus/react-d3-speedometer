@@ -1,4 +1,5 @@
 # custom react-d3-speedometer
+[npm publish error] sudo npm publish
 base on 0.12.0
 1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
 2) customSegmentLabel can show wrap text.（文字可以换行显示）
@@ -18,6 +19,7 @@ base on 0.12.0
   */
 
   <ReactSpeedometer
+  name="sd1" //to identify diff speedometer in one page,avoiding style shown wrong
   width={250}
   height={150}
   segments={2}
@@ -30,8 +32,8 @@ base on 0.12.0
     position: "INSIDE",
     fontSize: "12px",
     color: "#555",
-    dy: 10,
-    x:[90,105]
+    dy: 10,//distance between text lines
+    x:[90,105] //[first line distance,second line distance]
   },
   {
     text: "Presence of other\nabnormalities",
@@ -47,7 +49,7 @@ base on 0.12.0
   needleHeightRatio={0.3}
 />
 ```
-
+![npm](custom-react-d3-speedometer.png)
 
 # react-d3-speedometer
 
