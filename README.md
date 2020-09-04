@@ -50,7 +50,7 @@ base on 0.12.0
   needleHeightRatio={0.3}
 />
 ```
-![npm](./custom-react-d3-speedometer.png)
+![demo](demo.png)
 
 # react-d3-speedometer
 
