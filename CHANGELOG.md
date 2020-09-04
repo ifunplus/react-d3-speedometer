@@ -1,4 +1,6 @@
 # Change Log
+## 0.12.3
+- update style wrong when multi speedmeter in one page; add props name to identify them.
 
 ## 0.12.0
 - removed `@babel/runtime-corejs2` as dependency. ref: https://github.com/palerdot/react-d3-speedometer/issues/76
