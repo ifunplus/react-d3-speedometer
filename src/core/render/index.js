@@ -247,7 +247,7 @@ function _renderCustomSegmentLabels({
   scale,
   range,
 }) {
-  const { customSegmentStops, customSegmentLabels, segmentColors } = config
+  const { customSegmentStops, customSegmentLabels, segmentColors,name } = config
 
   // helper function to calculate angle
   function _calculateAngle(d, i) {
@@ -291,7 +291,7 @@ function _renderCustomSegmentLabels({
     .append("defs")
     .append("path")
     .attr("id", (item, i) => {
-      return "textPath" + segmentColors[i] + i
+      return "textPath" + name + segmentColors[i] + i
     })
     .attr("d", (item, i) => {
       return pathArr[i]
@@ -303,7 +303,7 @@ function _renderCustomSegmentLabels({
     .append("text")
     .append("textPath")
     .attr("xlink:href", function(a, b) {
-      return "#textPath" + segmentColors[b] + b
+      return "#textPath" +name+ segmentColors[b] + b
     })
     //   .text((aa,bb)=>{
     //       console.log("zhangxue >>>>>>>>>>>>>>",aa,bb)

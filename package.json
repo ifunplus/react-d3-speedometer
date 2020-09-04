@@ -1,11 +1,15 @@
 {
-  "name": "react-d3-speedometer",
-  "version": "0.12.0",
-  "description": "React D3 Speedometer Component",
+  "name": "custom-react-d3-speedometer",
+  "version": "0.12.3",
+  "description": "Custom React D3 Speedometer Component(based on palerdot)",
   "author": {
     "name": "palerdot",
     "email": "palerdot@gmail.com"
   },
+  "contributors": [{
+    "name": "ifunplus",
+    "email": "ustbzhangxue@outlook.com"
+  }],
   "repository": {
     "type": "git",
     "url": "https://github.com/palerdot/react-d3-speedometer.git"
