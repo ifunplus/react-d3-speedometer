@@ -1,6 +1,6 @@
 {
   "name": "custom-react-d3-speedometer",
-  "version": "0.12.3",
+  "version": "0.12.4",
   "description": "Custom React D3 Speedometer Component(based on palerdot)",
   "author": {
     "name": "palerdot",

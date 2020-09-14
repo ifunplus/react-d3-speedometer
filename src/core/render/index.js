@@ -49,6 +49,8 @@ export const render = ({ container, config }) => {
 
   const svg = _renderSVG({ container, config })
 
+  //add drop shadow
+  _renderDropShadow({ config, svg, centerTx })
   _renderArcs({ config, svg, centerTx })
   _renderLabels({ config, svg, centerTx, r })
 
@@ -76,6 +78,47 @@ function _renderSVG({ container, config }) {
   )
 }
 
+function _renderDropShadow({ config, svg, centerTx }) {
+  // filters go in defs element
+  var defs = svg.append("defs")
+  // create filter with id #drop-shadow
+  // height=130% so that the shadow is not clipped
+  var filter = defs
+    .append("filter")
+    .attr("id", "drop-shadow")
+    .attr("height", "130%")
+  // SourceAlpha refers to opacity of graphic that this filter will be applied to
+  // convolve that with a Gaussian with standard deviation 3 and store result
+  // in blur
+  filter
+    .append("feGaussianBlur")
+    .attr("in", "SourceAlpha")
+    .attr("stdDeviation", 5)
+  // .attr("result", "blur");
+
+  // translate output of Gaussian blur to the right and downwards with 2px
+  // store result in offsetBlur 阴影偏移
+  filter
+    .append("feOffset")
+    .attr("in", "blur")
+    //default value is 2
+    .attr("dx", config.feOffsetX)
+    .attr("dy", config.feOffsetY)
+    .attr("result", "offsetBlur")
+
+  var feComponentTransfer = filter.append("feComponentTransfer")
+  feComponentTransfer
+    .append("feFuncA")
+    .attr("type", "linear")
+    .attr("slope", 0.2)
+  // overlay original SourceGraphic over translated blurred opacity by using
+  // feMerge filter. Order of specifying inputs is important!
+  var feMerge = filter.append("feMerge")
+
+  feMerge.append("feMergeNode").attr("in", "offsetBlur")
+  feMerge.append("feMergeNode").attr("in", "SourceGraphic")
+}
+
 function _renderArcs({ config, svg, centerTx }) {
   const tickData = configureTickData(config)
   const arc = configureArc(config)
@@ -84,6 +127,7 @@ function _renderArcs({ config, svg, centerTx }) {
     .append("g")
     .attr("class", "arc")
     .attr("transform", centerTx)
+    .style("filter", "url(#drop-shadow)")
 
   arcs
     .selectAll("path")
@@ -140,10 +184,7 @@ function _renderLabels({ config, svg, centerTx, r }) {
   }
 
   // normal label rendering
-  let lg = svg
-    .append("g")
-    .attr("class", "label")
-    .attr("transform", centerTx)
+  let lg = svg.append("g").attr("class", "label").attr("transform", centerTx)
 
   lg.selectAll("text")
     .data(ticks)
@@ -176,7 +217,6 @@ function _renderLabels({ config, svg, centerTx, r }) {
  * path {Mx y A rx ry 0 1 1 x_final y_final}
  */
 function _getLabelTextPath(config) {
-  console.log("_getLabelTextPath ", config)
   const { customSegmentLabels, ringInset, ringWidth } = config
   const len = customSegmentLabels.length
   const halfWidth = config.width / 2
@@ -247,7 +287,12 @@ function _renderCustomSegmentLabels({
   scale,
   range,
 }) {
-  const { customSegmentStops, customSegmentLabels, segmentColors,name } = config
+  const {
+    customSegmentStops,
+    customSegmentLabels,
+    segmentColors,
+    name,
+  } = config
 
   // helper function to calculate angle
   function _calculateAngle(d, i) {
@@ -278,10 +323,7 @@ function _renderCustomSegmentLabels({
 
   const position = outerRadius - (outerRadius - innerRadius) / 2
 
-  let lg = svg
-    .append("g")
-    .attr("class", "label")
-    .attr("transform", centerTx)
+  let lg = svg.append("g").attr("class", "label").attr("transform", centerTx)
 
   var pathArr = _getLabelTextPath(config)
 
@@ -302,8 +344,8 @@ function _renderCustomSegmentLabels({
     .enter()
     .append("text")
     .append("textPath")
-    .attr("xlink:href", function(a, b) {
-      return "#textPath" +name+ segmentColors[b] + b
+    .attr("xlink:href", function (a, b) {
+      return "#textPath" + name + segmentColors[b] + b
     })
     //   .text((aa,bb)=>{
     //       console.log("zhangxue >>>>>>>>>>>>>>",aa,bb)
@@ -312,11 +354,12 @@ function _renderCustomSegmentLabels({
     .attr("transform", (d, i) => {
       const newAngle = newAngles[i]
 
-      const outerText = `rotate(${newAngle}) translate(0, ${config.labelInset -
-        r})`
-      const innerText = `rotate(${newAngle}) translate(0, ${config.labelInset /
-        2 -
-        position})`
+      const outerText = `rotate(${newAngle}) translate(0, ${
+        config.labelInset - r
+      })`
+      const innerText = `rotate(${newAngle}) translate(0, ${
+        config.labelInset / 2 - position
+      })`
 
       // by default we will show "INSIDE"
       return d.position === "OUTSIDE" ? outerText : innerText
@@ -329,13 +372,13 @@ function _renderCustomSegmentLabels({
     .style("font-size", (d) => d.fontSize || config.labelFontSize)
     .style("font-weight", "bold")
     .style("fill", (d) => d.color || config.textColor)
-    .each(function(aaa, i) {
+    .each(function (aaa, i) {
       var lines = _wordwrap(aaa.text)
       for (var i = 0; i < lines.length; i++) {
         d3Select(this)
           .append("tspan")
           .attr("dy", aaa.dy * i)
-          .attr("x", function() {
+          .attr("x", function () {
             return aaa.x && aaa.x[i] ? aaa.x[i] : 0
           })
           .text(lines[i])

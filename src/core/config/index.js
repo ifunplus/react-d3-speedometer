@@ -81,6 +81,8 @@ export const getConfig = ({ PROPS, parentWidth, parentHeight }) => {
   const config = {
     //for identify; two ReactSpeedometer in one page
     name: PROPS.name,
+    feOffsetX: PROPS.feOffsetX ? PROPS.feOffsetX : 2,
+    feOffsetY: PROPS.feOffsetY ? PROPS.feOffsetY : 2,
     // width/height config
     // if fluidWidth; width/height taken from the parent of the ReactSpeedometer
     // else if width/height given it is used; else our default
