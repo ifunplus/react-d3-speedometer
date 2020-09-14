@@ -1,4 +1,6 @@
 # Change Log
+## 0.12.4
+- add fan drop shadow to svg,config by set feOffsetX,feOffsetY(default value is 2)
 ## 0.12.3
 - update style wrong when multi speedmeter in one page; add props name to identify them.
 
