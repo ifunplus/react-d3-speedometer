@@ -85,9 +85,7 @@ export function calculateSegmentLabelCount({
 
 // calculate d3 scale
 export function calculateScale({ min, max, segments }) {
-  return d3ScaleLinear()
-    .range([0, 1])
-    .domain([min, max])
+  return d3ScaleLinear().range([0, 1]).domain([min, max])
 }
 
 // calculate ticks

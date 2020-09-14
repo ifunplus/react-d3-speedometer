@@ -88,18 +88,12 @@ describe("<ReactSpeedometer />", () => {
     const value = 333
     const updatedValue = 470
     const full_dom_wrapper = mount(<ReactSpeedometer value={value} />)
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toBe(value.toString())
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toBe(
+      value.toString()
+    )
     // confirm if our start color is the default
     expect(
-      full_dom_wrapper
-        .render()
-        .find("path.speedo-segment")
-        .get(0).attribs.fill
+      full_dom_wrapper.render().find("path.speedo-segment").get(0).attribs.fill
     ).toBe(`rgb(255, 71, 26)`) // rgb value of our default 'startColor'
     // set updated props
     full_dom_wrapper.setProps({
@@ -107,18 +101,12 @@ describe("<ReactSpeedometer />", () => {
       startColor: "red",
     })
     // confirm if our value is updated
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toBe(updatedValue.toString())
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toBe(
+      updatedValue.toString()
+    )
     // confirm our start color is intact
     expect(
-      full_dom_wrapper
-        .render()
-        .find("path.speedo-segment")
-        .get(0).attribs.fill
+      full_dom_wrapper.render().find("path.speedo-segment").get(0).attribs.fill
     ).toBe(`rgb(255, 71, 26)`) // rgb value of our default 'startColor'
   })
 
@@ -151,12 +139,9 @@ describe("<ReactSpeedometer />", () => {
   test("should display the format of the values correctly", () => {
     // checking the default value
     const full_dom_wrapper = mount(<ReactSpeedometer value={0} />)
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toBe("0")
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toBe(
+      "0"
+    )
     // setting label format to "d" and verifying the resulting value
     let passed_value = 477.7,
       transformed_value = "478"
@@ -166,12 +151,9 @@ describe("<ReactSpeedometer />", () => {
       valueFormat: "d",
     })
     // test if the formatting reflects the expected value
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toBe(transformed_value)
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toBe(
+      transformed_value
+    )
   })
 
   // check the custom value text
@@ -180,24 +162,18 @@ describe("<ReactSpeedometer />", () => {
     const full_dom_wrapper = mount(
       <ReactSpeedometer value={333} currentValueText={"Porumai: ${value}"} />
     )
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toBe("Porumai: 333")
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toBe(
+      "Porumai: 333"
+    )
     // change props to another text
     full_dom_wrapper.setProps({
       value: 555,
       currentValueText: "Current Value: ${value}",
     })
     // test current value text reflects our new props
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toBe("Current Value: 555")
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toBe(
+      "Current Value: 555"
+    )
   })
 
   // it should not break on invalid needle transition
@@ -247,12 +223,9 @@ describe("<ReactSpeedometer />", () => {
         />
       </div>
     )
-    expect(
-      full_dom_wrapper
-        .render()
-        .find("text.current-value")
-        .text()
-    ).toEqual(current_value.toString())
+    expect(full_dom_wrapper.render().find("text.current-value").text()).toEqual(
+      current_value.toString()
+    )
   })
 
   test("scale and ticks works properly", () => {
@@ -370,10 +343,8 @@ describe("Custom Segment Colors", () => {
 
     segmentColors.forEach((color, index) => {
       expect(
-        full_dom_wrapper
-          .render()
-          .find("path.speedo-segment")
-          .get(index).attribs.fill
+        full_dom_wrapper.render().find("path.speedo-segment").get(index).attribs
+          .fill
       ).toEqual(color)
     })
   })
@@ -401,10 +372,8 @@ describe("Custom Segment Colors", () => {
 
     segmentColors.forEach((color, index) => {
       expect(
-        full_dom_wrapper
-          .render()
-          .find("path.speedo-segment")
-          .get(index).attribs.fill
+        full_dom_wrapper.render().find("path.speedo-segment").get(index).attribs
+          .fill
       ).toEqual(color)
     })
   })
@@ -424,10 +393,8 @@ describe("Custom Segment Colors", () => {
 
     segmentColors.forEach((color, index) => {
       expect(
-        full_dom_wrapper
-          .render()
-          .find("path.speedo-segment")
-          .get(index).attribs.fill
+        full_dom_wrapper.render().find("path.speedo-segment").get(index).attribs
+          .fill
       ).toEqual(color)
     })
   })
