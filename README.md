@@ -1,9 +1,13 @@
-# custom react-d3-speedometer
+# custom react-d3-speedometer 0.12.4
 [npm publish error] sudo npm publish   
 
 base on 0.12.0  
 1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
-2) customSegmentLabel can show wrap text.（文字可以换行显示）
+2) customSegmentLabel can show wrap text.（文字可以换行显示）   
+3) add fan drop shadow to svg,config by set feOffsetX,feOffsetY(default value is 2)
+
+## how to use   
+npm i custom-react-d3-speedometer   
 
 ## custom example
 ```javascript
@@ -24,6 +28,8 @@ base on 0.12.0
   width={250}
   height={150}
   segments={2}
+  feOffsetX={2}
+  feOffsetY={2}
   segmentColors={["#52C41AFF", "#F03B20FF"]}
   value={250}
   currentValueText={250}
@@ -51,6 +57,7 @@ base on 0.12.0
 />
 ```
 ![demo](demo.png)
+![demo1](demo1.png)
 
 # react-d3-speedometer
 
