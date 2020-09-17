@@ -1,4 +1,4 @@
-# custom react-d3-speedometer 0.12.4
+# custom-react-d3-speedometer@0.12.5
 [npm publish error] sudo npm publish   
 
 base on 0.12.0  
