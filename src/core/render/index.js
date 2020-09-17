@@ -135,22 +135,6 @@ function _renderArcs({ config, svg, centerTx }) {
     arcs.style("filter", "url(#drop-shadow)")
   }
 
-  arcs
-    .selectAll("path")
-    .data(tickData)
-    .enter()
-    .append("path")
-    .attr("class", "speedo-segment")
-    .attr("fill", (d, i) => {
-      // if custom segment colors is present just use it
-      if (!isEmpty(config.segmentColors) && config.segmentColors[i]) {
-        return config.segmentColors[i]
-      }
-
-      return config.arcColorFn(d * i)
-    })
-    .attr("d", arc)
-
   if(showShadow&&shadowIn==="paths"){
     arcs
     .selectAll("path")
