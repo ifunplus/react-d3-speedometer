@@ -4,7 +4,8 @@
 base on 0.12.0  
 1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
 2) customSegmentLabel can show wrap text.（文字可以换行显示）   
-3) add fan drop shadow to svg,config by set feOffsetX,feOffsetY(default value is 2)（半圆添加阴影效果）
+3) add fan drop shadow to svg,config by set feOffsetX,feOffsetY(default value is 2)（半圆添加阴影效果）   
+4) add fan drop shadow to every path,config by set showShadow(false/true,default false),shadowIn(arcs/paths,default arcs)
 
 ## how to use   
 npm i custom-react-d3-speedometer   
@@ -29,6 +30,8 @@ npm i custom-react-d3-speedometer
   height={150}
   segments={2}
   feOffsetX={2}
+  showShadow={true}
+  shadowIn={"paths"}
   feOffsetY={2}
   segmentColors={["#52C41AFF", "#F03B20FF"]}
   value={250}
@@ -56,8 +59,9 @@ npm i custom-react-d3-speedometer
   needleHeightRatio={0.3}
 />
 ```
-![demo](demo.png)
-![demo1](demo1.png)
+![demo](demo.png)   
+![demo1](demo1.png)   
+![demo2](demo2.png)
 
 # react-d3-speedometer
 

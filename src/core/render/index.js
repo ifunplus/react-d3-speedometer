@@ -123,11 +123,17 @@ function _renderArcs({ config, svg, centerTx }) {
   const tickData = configureTickData(config)
   const arc = configureArc(config)
 
+  const {showShadow, shadowIn} = config
+
   let arcs = svg
     .append("g")
     .attr("class", "arc")
     .attr("transform", centerTx)
-    .style("filter", "url(#drop-shadow)")
+    
+
+  if(showShadow&&shadowIn==="arcs"){
+    arcs.style("filter", "url(#drop-shadow)")
+  }
 
   arcs
     .selectAll("path")
@@ -144,6 +150,41 @@ function _renderArcs({ config, svg, centerTx }) {
       return config.arcColorFn(d * i)
     })
     .attr("d", arc)
+
+  if(showShadow&&shadowIn==="paths"){
+    arcs
+    .selectAll("path")
+    .data(tickData)
+    .enter()
+    .append("path")
+    .style("filter", "url(#drop-shadow)")
+    .attr("class", "speedo-segment")
+    .attr("fill", (d, i) => {
+      // if custom segment colors is present just use it
+      if (!isEmpty(config.segmentColors) && config.segmentColors[i]) {
+        return config.segmentColors[i]
+      }
+
+      return config.arcColorFn(d * i)
+    })
+    .attr("d", arc)
+  }else{
+    arcs
+    .selectAll("path")
+    .data(tickData)
+    .enter()
+    .append("path")
+    .attr("class", "speedo-segment")
+    .attr("fill", (d, i) => {
+      // if custom segment colors is present just use it
+      if (!isEmpty(config.segmentColors) && config.segmentColors[i]) {
+        return config.segmentColors[i]
+      }
+
+      return config.arcColorFn(d * i)
+    })
+    .attr("d", arc)
+  }
 }
 
 function _renderLabels({ config, svg, centerTx, r }) {

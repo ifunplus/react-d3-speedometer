@@ -1,4 +1,6 @@
 # Change Log
+## 0.12.5
+- add fan drop shadow to every path,config by set showShadow(false/true,default false),shadowIn(arcs/paths,default arcs)
 ## 0.12.4
 - add fan drop shadow to svg,config by set feOffsetX,feOffsetY(default value is 2)
 ## 0.12.3

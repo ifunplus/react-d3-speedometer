@@ -75,6 +75,8 @@ const DEFAULT_CONFIG = {
   maxAngle: 90,
 
   labelInset: 10,
+  shadowIn:"arcs",
+  showShadow:false
 }
 
 export const getConfig = ({ PROPS, parentWidth, parentHeight }) => {
@@ -83,6 +85,9 @@ export const getConfig = ({ PROPS, parentWidth, parentHeight }) => {
     name: PROPS.name,
     feOffsetX: PROPS.feOffsetX ? PROPS.feOffsetX : 2,
     feOffsetY: PROPS.feOffsetY ? PROPS.feOffsetY : 2,
+    showShadow: PROPS.showShadow,
+    //false,true
+    shadowIn: PROPS.shadowIn,
     // width/height config
     // if fluidWidth; width/height taken from the parent of the ReactSpeedometer
     // else if width/height given it is used; else our default
