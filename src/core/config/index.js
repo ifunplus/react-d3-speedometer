@@ -88,6 +88,8 @@ export const getConfig = ({ PROPS, parentWidth, parentHeight }) => {
     showShadow: PROPS.showShadow,
     //false,true
     shadowIn: PROPS.shadowIn,
+    pointerWidth: PROPS.pointerWidth,
+    pointerTailLength: PROPS.pointerTailLength,
     // width/height config
     // if fluidWidth; width/height taken from the parent of the ReactSpeedometer
     // else if width/height given it is used; else our default

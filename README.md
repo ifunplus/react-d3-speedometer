@@ -1,11 +1,12 @@
-# custom-react-d3-speedometer@0.12.6
+# custom-react-d3-speedometer@0.12.7
 [npm publish error] sudo npm publish   
 
 base on 0.12.0  
 1) customSegmentLabels' text is arranged in the arc direction.（文字沿着圆弧方向排列）
 2) customSegmentLabel can show wrap text.（文字可以换行显示）   
 3) add fan drop shadow to svg,config by set feOffsetX,feOffsetY(default value is 2)（半圆添加阴影效果）   
-4) add fan drop shadow to every path,config by set showShadow(false/true,default false),shadowIn(arcs/paths,default arcs)
+4) add fan drop shadow to every path,config by set showShadow(false/true,default false),shadowIn(arcs/paths,default arcs)(半圆的每个块周围添加阴影，整个半圆添加阴影)
+5) Expose configuration properties for the pointer: pointerWidth,pointerTailLength (暴露指针配置属性 default pointerWidth =10,default pointerTailLength=5 )
 
 ## how to use   
 npm i custom-react-d3-speedometer   
@@ -57,11 +58,14 @@ npm i custom-react-d3-speedometer
   customSegmentStops={[0, 500, 1000]}
   ringWidth={50}
   needleHeightRatio={0.3}
+  pointerWidth={12}
+  pointerTailLength={5}
 />
 ```
 ![demo]([demo.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo.png))   
 ![demo1]([demo1.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo1.png))   
 ![demo2]([demo2.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo2.png))
+![demo3]([demo3.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo2.png))
 
 # react-d3-speedometer
 
