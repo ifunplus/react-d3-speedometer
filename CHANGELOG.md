@@ -1,5 +1,5 @@
 # Change Log
-## 0.12.7
+## 0.12.8
 - Expose configuration properties for the pointer: pointerWidth,pointerTailLength (default pointerWidth =10,default pointerTailLength=5 )
 ## 0.12.6
 - add fan drop shadow to every path,config by set showShadow(false/true,default false),shadowIn(arcs/paths,default arcs)
