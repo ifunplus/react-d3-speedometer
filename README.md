@@ -65,7 +65,6 @@ npm i custom-react-d3-speedometer
 ![demo]([demo.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo.png))   
 ![demo1]([demo1.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo1.png))   
 ![demo2]([demo2.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo2.png))
-![demo3]([demo3.png](https://raw.githubusercontent.com/ifunplus/react-d3-speedometer/master/demo2.png))
 
 # react-d3-speedometer
 
